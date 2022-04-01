@@ -790,8 +790,8 @@ usrp2_impl::usrp2_impl(const device_addr_t &_device_addr) :
 		case usrp2_iface::USRP_N210_XK:
 		case usrp2_iface::USRP_N210_XA:
 			_tree->create<time_spec_t>(mb_path / "time/cmd").add_coerced_subscriber(
-					boost::bind(&usrp2_fifo_ctrl::set_time, _mbc[mb].fifo_ctrl,
-							_1));
+					std::bind(&usrp2_fifo_ctrl::set_time, _mbc[mb].fifo_ctrl,
+							std::placeholders::_1));
 
 		default:
 			break; // otherwise, do not register
