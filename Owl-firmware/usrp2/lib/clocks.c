@@ -42,6 +42,8 @@ clocks_init(void)
   //output_regs->phy_ctrl |= 0x01;		//PHY_RESET
   //output_regs->dac_ctrl |= 0x01;		//DAC_RESET
 
+  ad9516_clocks_enable_fpga(true, 1);
+
   ad9516_clocks_enable_phy(true, 4);
 
   //issue a reset to the DCM so it locks up to the new freq

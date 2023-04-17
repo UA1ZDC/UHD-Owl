@@ -15,9 +15,12 @@ def bin_to_ram_macro_init(bin_input_file, ram_init_output_file):
     ifile = open(bin_input_file, 'rb')
     ofile = open(ram_init_output_file, 'w')
     idata = ifile.read()
-    idata_words = len(idata) / 4
+
+    idata += bytes([0])
+
+    idata_words = int(len(idata) / 4)
     fmt = ">%dI"%idata_words
-    words = struct.unpack(fmt, idata[:idata_words*4])
+    words = struct.unpack(fmt, idata)
 
     # pad to a multiple of 8 words
     r = len(words) % 8
@@ -28,9 +31,9 @@ def bin_to_ram_macro_init(bin_input_file, ram_init_output_file):
         sys.stderr.write("bin_to_macro_init: error: input file %s is > %dKiB\n" % (bin_input_file,BOOTRAM_SIZE))
         sys.exit(1)
 
-    for q in range(0, BOOTRAM_SIZE/4, 512):
+    for q in range(0, int(BOOTRAM_SIZE/4), 512):
         for i in range(q, min(q+512, len(words)), 8):
-            do_8_words(ofile, int(q / 1024), (i/8) % 128, words[i:i+8])
+            do_8_words(ofile, int(q / 1024), int(i/8) % 128, words[i:i+8])
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:

@@ -110,9 +110,9 @@ ad9516_clocks_enable_phy(bool enable, int divisor)
 	  div_word =(M & 0x0f) | ((N & 0x0f) << 4);
   }
 
-  ad9516_write_reg(REG_IN_CLKs,0x01); // Bypass the VCO divider as source for distribution section
+  //ad9516_write_reg(REG_IN_CLKs,0x01); // Bypass the VCO divider as source for distribution section
 
-  ad9516_write_reg(REG_OUT9, enable_word); // Output to PHY en/dis
+  ad9516_write_reg(REG_OUT8, enable_word); // Output to PHY en/dis
 
   ad9516_write_reg(REG_DIVIDER4,div_word); // Set divisor
 
@@ -146,7 +146,7 @@ ad9516_clocks_enable(bool enable)
 
   ad9516_write_reg(REG_IN_CLKs,0x01); // Bypass the VCO divider as source for distribution section
 
-  ad9516_write_reg(REG_OUT9, enable_word); // Output to PHY en/dis
+  ad9516_write_reg(REG_OUT8, enable_word); // Output to PHY en/dis
 
   ad9516_write_reg(REG_DIVIDER4,div_word); // Set divisor
   ad9516_write_reg(REG_DIVIDER4 + 3,bypass_word); // Divider 4.2 bypass

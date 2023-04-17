@@ -42,15 +42,18 @@ u2_init(void)
   // init spi, so that we can switch over to the high-speed clock
   spi_init();
 
+
+//#ifdef BOOTLOADER
   // set up the default clocks
   clocks_init();
 
-  output_regs->phy_ctrl |= 0x01;		//PHY_RESET
-  mdelay(300);
-  output_regs->phy_ctrl &= ~0x01;
+  //output_regs->phy_ctrl |= 0x01;		//PHY_RESET
+  //mdelay(300);
+  //output_regs->phy_ctrl &= ~0x01;
 
   // set up ADC reg's
   ltc2185_init();
+//#endif
 
   hal_uart_init();
 

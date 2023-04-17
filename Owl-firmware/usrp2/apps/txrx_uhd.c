@@ -328,9 +328,10 @@ main(void)
 #ifdef BOOTLOADER
   //load the production FPGA image or firmware if appropriate
   do_the_bootload_thing();
+#endif
+
   //if we get here we've fallen through to safe firmware
   eth_addrs_set_default();
-#endif
 
   print_mac_addr(ethernet_mac_addr()); newline();
   print_ip_addr(get_ip_addr()); newline();
@@ -358,6 +359,7 @@ main(void)
 
   //4) setup ethernet hardware to bring the link up
   ethernet_register_link_changed_callback(link_changed_callback);
+
   ethernet_init();
 
   while(true){

@@ -303,7 +303,7 @@ static void n200_validate_firmware_image(n200_session_t& session)
     image_file.seekg(0, std::ios::beg);
     image_file.read((char*)test_bytes, 4);
     image_file.close();
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 2; i++)
         if (test_bytes[i] != 11) {
             throw uhd::runtime_error(str(
                 boost::format("The file at path \"%s\" is not a valid firmware image.")
@@ -372,7 +372,8 @@ static void n200_setup_session(n200_session_t& session,
      * impossible, and the user must manually provide a firmware file.
      */
     if ((session.fw and image_loader_args.firmware_path.empty())
-        or image_loader_args.fpga_path.empty()) {
+       // or image_loader_args.fpga_path.empty()) {
+    ) {
         if (session.dev_addr["hw_rev"] == "n2xx") {
             throw uhd::runtime_error("This device's revision cannot be determined. "
                                      "You must manually specify a filepath.");
